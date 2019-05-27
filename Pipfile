@@ -12,6 +12,7 @@ flask-sqlalchemy = "*"
 flask-moment = "*"
 flask-ckeditor = "*"
 flask-wtf = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %} - Blog</title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"
+          media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% endblock head %}
+</head>
+<body class=" blue-grey lighten-5">
+{% block nav %}
+<nav class="nav-extended black">
+    <div class="nav-content container">
+        <ul class="tabs tabs-transparent">
+            <li class="tab"></li>
+            <li class="tab"><a class="active" href="{{ url_for('blog.index') }}">博客</a></li>
+            <li class="tab"><a href="#">想法</a></li>
+            <li class="tab"><a href="#">项目</a></li>
+            <li class="tab"><a href="#">关于</a></li>
+        </ul>
+    </div>
+</nav>
+{% endblock nav %}
+
+<main>
+    {% for message in get_flashed_messages(with_categories=True) %}
+        <!--提示消息-->
+    {% endfor %}
+    <br>
+    <br>
+    {% block content %}
+    {% endblock content %}
+    {% block footer %}
+    {% endblock footer %}
+</main>
+
+{% block scripts %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+<script>
+    $(document).ready(function(){
+        $(".button-collapse").sideNav();
+    });
+    {% endblock scripts %}
+
+</script>
+</body>
+</html>
