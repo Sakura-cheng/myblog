@@ -13,5 +13,25 @@
             <span class="right chip">{{ post.timestamp }}</span>
         </div>
     </div>
+    <a class="waves-effect waves-light btn" href="#modal1">分享</a>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>分享链接</h4>
+            <input type="text" class="" value="{{ url_for('.show_post', post_id=post.id, _external=True) }}">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+</script>
 {% endblock %}

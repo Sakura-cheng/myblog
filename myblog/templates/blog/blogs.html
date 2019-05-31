@@ -34,4 +34,14 @@
     </ul>
     {% endif %}
 </div>
+<div class="container">
+    <small>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout', next=request.full_path) }}" class="waves-effect waves-light btn-flat right">登出</a>
+        {% else %}
+        <a href="{{ url_for('auth.login', next=request.full_path) }}"
+           class="waves-effect waves-light btn-flat right">登录</a>
+        {% endif %}
+    </small>
+</div>
 {% endblock %}

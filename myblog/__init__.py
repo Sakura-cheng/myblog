@@ -4,7 +4,7 @@ import os
 from myblog.blueprints.auth import auth_bp
 from myblog.blueprints.blog import blog_bp
 from myblog.blueprints.admin import admin_bp
-from myblog.extensions import moment, db, ckeditor
+from myblog.extensions import moment, db, ckeditor, login_manager
 from myblog.models import Admin, Category
 
 
@@ -27,6 +27,7 @@ def register_extensions(app):
     db.init_app(app)
     moment.init_app(app)
     ckeditor.init_app(app)
+    login_manager.init_app(app)
 
 
 def register_blueprints(app):

@@ -16,8 +16,10 @@
 <nav class="grey darken-3">
     <div class="nav-wrapper container">
         <ul class="left hide-on-med-and-down">
-            <li {% if request.endpoint=='blog.index' %}class="active"{% endif %}><a href="{{ url_for('blog.index') }}">博客</a></li>
-            <li {% if request.endpoint=='blog.thinking' %}class="active"{% endif %}><a href="{{ url_for('blog.thinking') }}">想法</a></li>
+            <li {% if request.endpoint=='blog.index' %}class="active" {% endif %}><a href="{{ url_for('blog.index') }}">博客</a>
+            </li>
+            <li {% if request.endpoint=='blog.thinking' %}class="active" {% endif %}><a
+                    href="{{ url_for('blog.thinking') }}">想法</a></li>
             <li><a href="#">项目</a></li>
             <li><a href="#">关于</a></li>
         </ul>
@@ -27,7 +29,7 @@
 
 <main>
     {% for message in get_flashed_messages(with_categories=True) %}
-        <!--提示消息-->
+    <!--提示消息-->
     {% endfor %}
     <br>
     <br>
@@ -44,8 +46,9 @@
     $(document).ready(function(){
         $(".button-collapse").sideNav();
     });
-    {% endblock scripts %}
+
 
 </script>
+{% endblock scripts %}
 </body>
 </html>
