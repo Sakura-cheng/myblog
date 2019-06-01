@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MYBLOG_POST_PER_PAGE = 1
+    MYBLOG_POST_PER_PAGE = 10
 
 
 class DevelopmentConfig(BaseConfig):

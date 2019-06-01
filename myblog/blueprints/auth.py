@@ -1,5 +1,5 @@
 # 认证相关
-from flask import Blueprint, redirect, url_for, render_template, request
+from flask import Blueprint, redirect, url_for, render_template, flash
 from flask_login import current_user, login_user, logout_user
 from myblog.models import Admin
 from myblog.forms import LoginForm
@@ -22,11 +22,15 @@ def login():
         if admin:
             if username == admin.username and admin.validate_password(password):
                 login_user(admin, remember)
+                flash('登录成功')
                 return redirect_back()
+            else:
+                flash('账号或密码错误')
     return render_template('auth/login.html', form=form)
 
 
 @auth_bp.route('/logout')
 def logout():
     logout_user()
+    flash('登出成功')
     return redirect_back()

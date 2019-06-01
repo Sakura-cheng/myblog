@@ -3,7 +3,7 @@
 <head>
     {% block head %}
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock title %}{{ admin.blog_title }} - Blog</title>
+    <title>{% block title %}{% endblock title %}{{ admin.blog_title }} - blog</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"
           media="screen,projection"/>
@@ -15,18 +15,25 @@
 {% block nav %}
 <nav class="grey darken-3">
     <div class="nav-wrapper container">
+        {% if current_user.is_authenticated %}
+        <ul class="right hide-on-med-and-down">
+            <li {% if request.endpoint=='auth.manager' %}class="active right" {% endif %}><a
+                    href="{{ url_for('admin.manager') }}">管理</a></li>
+        </ul>
+        {% endif %}
         <ul class="left hide-on-med-and-down">
             <li {% if request.endpoint=='blog.index' %}class="active" {% endif %}><a href="{{ url_for('blog.index') }}">博客</a>
             </li>
             <li {% if request.endpoint=='blog.thinking' %}class="active" {% endif %}><a
                     href="{{ url_for('blog.thinking') }}">想法</a></li>
-            <li><a href="#">项目</a></li>
-            <li><a href="#">关于</a></li>
+            <li {% if request.endpoint=='blog.project' %}class="active" {% endif %}><a
+                    href="{{ url_for('blog.project') }}">项目</a></li>
+            <li {% if request.endpoint=='blog.about' %}class="active" {% endif %}><a
+                    href="{{ url_for('blog.about') }}">关于</a></li>
         </ul>
     </div>
 </nav>
 {% endblock nav %}
-
 <main>
     {% for message in get_flashed_messages(with_categories=True) %}
     <!--提示消息-->
@@ -47,6 +54,14 @@
         $(".button-collapse").sideNav();
     });
 
+</script>
+<script>
+    $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
+    });
+    {% for message in get_flashed_messages() %}
+    Materialize.toast('{{ message }}', 1000)
+    {% endfor %}
 
 </script>
 {% endblock scripts %}

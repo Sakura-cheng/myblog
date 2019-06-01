@@ -13,10 +13,10 @@
             <span class="right chip">{{ post.timestamp }}</span>
         </div>
     </div>
-    <a class="waves-effect waves-light btn" href="#modal1">分享</a>
+    <a class="waves-effect waves-light btn right" href="#modal1">分享</a>
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>分享链接</h4>
+            <p>分享链接</p>
             <input type="text" class="" value="{{ url_for('.show_post', post_id=post.id, _external=True) }}">
         </div>
         <div class="modal-footer">

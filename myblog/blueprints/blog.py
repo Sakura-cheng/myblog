@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, current_app
+from flask import Blueprint, render_template, request, current_app, flash
 from myblog.models import Post
 
 blog_bp = Blueprint('blog', __name__)
@@ -23,3 +23,14 @@ def thinking():
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('blog/post.html', post=post)
+
+
+@blog_bp.route('/project')
+def project():
+    return 'project'
+
+
+@blog_bp.route('/about')
+def about():
+    return 'about'
+
