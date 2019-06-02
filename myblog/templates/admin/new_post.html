@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-    <div class="col s2"></div>
-    <form class="col s8" method="post">
+    <div class="col s1"></div>
+    <form class="col s10" method="post">
         {{ form.csrf_token }} <!-- 渲染SCRF令牌隐藏字段 -->
         <div class="input-field">{{ form.title.label }}{{ form.title }}</div>
         <div class="input-field">{{ form.category }}{{ form.category.label }}</div>

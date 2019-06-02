@@ -42,15 +42,15 @@
         {% endblock content %}
     </div>
     <br>
-    <footer class="grey darken-3 page-footer">
-        <div class="footer-copyright">
-            <div class="container">
-                © 2019 Copyright 文本
-                <a class="grey-text text-lighten-4 right" href="#!">更多链接</a>
-            </div>
-        </div>
-    </footer>
 </main>
+<footer class="grey darken-3 page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2019 Copyright 文本
+            <a class="grey-text text-lighten-4 right" href="#!">更多链接</a>
+        </div>
+    </div>
+</footer>
 
 {% block scripts %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -61,6 +61,7 @@
     $(document).ready(function(){
         $(".button-collapse").sideNav();
     });
+
 </script>
 <script>
     $(document).ready(function(){
@@ -69,6 +70,7 @@
     {% for message in get_flashed_messages() %}
     Materialize.toast('{{ message }}', 1000)
     {% endfor %}
+
 </script>
 {% endblock scripts %}
 </body>

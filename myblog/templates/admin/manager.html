@@ -1,3 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if posts %}
+<div class="card white hoverable">
+    <div class="card-content">
+        <ul class="collection">
+            {% for post in posts %}
+            <li class="collection-item"><a href="{{ url_for('blog.show_post', post_id=post.id) }}"
+                                           class="teal-text lighten-1">{{ post.title }}</a>
+                <form id="delete_form_{{ post.id }}" class="secondary-content" method="post"
+                      action="{{ url_for('.delete_post', post_id=post.id, next=request.full_path) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <a class="secondary-content" href="#modal1"><i class="material-icons">delete</i></a>
+                </form>
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <p>确定要删除吗？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"
+                           onclick="document.getElementById('delete_form_{{ post.id }}').submit()">是</a>
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">否</a>
+                    </div>
+                </div>
+                <a class="secondary-content" href="{{ url_for('admin.edit_post', post_id=post.id) }}"><i
+                        class="material-icons">mode_edit</i></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<ul class="pagination center">
+    <li {% if not pagination.has_prev %}class="disabled" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=pagination.prev_num) if pagination.has_prev else '#' }}"><i
+            class="material-icons">chevron_left</i></a></li>
+    {% for page in range(pagination.pages) %}
+    <li {% if pagination.page== (page + 1) %}class="active grey darken-3" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=page + 1) }}">{{ page + 1 }}</a></li>
+    {% endfor %}
+    <li {% if not pagination.has_next %}class="disabled" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=pagination.next_num) if pagination.has_next else '#' }}"><i
+            class="material-icons">chevron_right</i></a></li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
+
+</script>
 {% endblock %}

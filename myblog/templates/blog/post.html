@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
+{% if post %}
 <div class="card white hoverable">
     <div class="card-content">
         <p class="card-title">{{ post.title }}</p>
@@ -18,12 +19,13 @@
                     <input type="text" class="" value="{{ url_for('.show_post', post_id=post.id, _external=True) }}">
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat teal-text lighten-1">关闭</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

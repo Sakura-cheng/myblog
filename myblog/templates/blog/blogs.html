@@ -6,9 +6,9 @@
     <div class="col s12">
         <div class="card white hoverable">
             <div class="card-content">
-                <a href="{{ url_for('.show_post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
+                <a href="{{ url_for('.show_post', post_id=post.id) }}" class="card-title teal-text lighten-1">{{ post.title }}</a>
                 <p>{{ post.body|striptags|truncate }}
-                    <small><a href="{{ url_for('.show_post', post_id=post.id) }}">Read More</a></small>
+                    <small><a href="{{ url_for('.show_post', post_id=post.id) }}" class="teal-text lighten-1">Read More</a></small>
                 </p>
             </div>
             <div class="card-action">
