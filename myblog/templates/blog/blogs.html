@@ -1,49 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    {% if posts %}
-    {% for post in posts %}
-    <div class="row">
-        <div class="col s12">
-            <div class="card white hoverable">
-                <div class="card-content">
-                    <a href="{{ url_for('.show_post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
-                    <p>{{ post.body|striptags|truncate }}
-                        <small><a href="{{ url_for('.show_post', post_id=post.id) }}">Read More</a></small>
-                    </p>
-                </div>
-                <div class="card-action">
-                    <a><span class="chip">{{ post.category.name }}</span></a>
-                    <span class="right chip">{{ post.timestamp }}</span>
-                </div>
+{% if posts %}
+{% for post in posts %}
+<div class="row">
+    <div class="col s12">
+        <div class="card white hoverable">
+            <div class="card-content">
+                <a href="{{ url_for('.show_post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
+                <p>{{ post.body|striptags|truncate }}
+                    <small><a href="{{ url_for('.show_post', post_id=post.id) }}">Read More</a></small>
+                </p>
+            </div>
+            <div class="card-action">
+                <a><span class="chip">{{ post.category.name }}</span></a>
+                <span class="right chip">{{ moment(post.timestamp).format('lll') }}</span>
             </div>
         </div>
     </div>
+</div>
+{% endfor %}
+<ul class="pagination center">
+    <li {% if not pagination.has_prev %}class="disabled" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=pagination.prev_num) if pagination.has_prev else '#' }}"><i
+            class="material-icons">chevron_left</i></a></li>
+    {% for page in range(pagination.pages) %}
+    <li {% if pagination.page== (page + 1) %}class="active grey darken-3" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=page + 1) }}">{{ page + 1 }}</a></li>
     {% endfor %}
-    <ul class="pagination center">
-        <li {% if not pagination.has_prev %}class="disabled" {% endif %}><a
-                href="{{ url_for(request.endpoint, page=pagination.prev_num) if pagination.has_prev else '#' }}"><i
-                class="material-icons">chevron_left</i></a></li>
-        {% for page in range(pagination.pages) %}
-        <li {% if pagination.page== (page + 1) %}class="active grey darken-3" {% endif %}><a
-                href="{{ url_for(request.endpoint, page=page + 1) }}">{{ page + 1 }}</a></li>
-        {% endfor %}
-        <li {% if not pagination.has_next %}class="disabled" {% endif %}><a
-                href="{{ url_for(request.endpoint, page=pagination.next_num) if pagination.has_next else '#' }}"><i
-                class="material-icons">chevron_right</i></a></li>
-    </ul>
+    <li {% if not pagination.has_next %}class="disabled" {% endif %}><a
+            href="{{ url_for(request.endpoint, page=pagination.next_num) if pagination.has_next else '#' }}"><i
+            class="material-icons">chevron_right</i></a></li>
+</ul>
+{% endif %}
+
+<small>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('auth.logout', next=request.full_path) }}"
+       class="waves-effect waves-light btn-flat right">登出</a>
+    {% else %}
+    <a href="{{ url_for('auth.login', next=request.full_path) }}"
+       class="waves-effect waves-light btn-flat right">登录</a>
     {% endif %}
-</div>
-<div class="container">
-    <small>
-        {% if current_user.is_authenticated %}
-        <a href="{{ url_for('auth.logout', next=request.full_path) }}" class="waves-effect waves-light btn-flat right">登出</a>
-        {% else %}
-        <a href="{{ url_for('auth.login', next=request.full_path) }}"
-           class="waves-effect waves-light btn-flat right">登录</a>
-        {% endif %}
-    </small>
-</div>
+</small>
+
 {% if current_user.is_authenticated %}
 <div class="fixed-action-btn">
     <a class="btn-floating btn grey darken-3" href="{{ url_for('admin.new_post') }}">

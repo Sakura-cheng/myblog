@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {% endblock head %}
 </head>
-<body class=" blue-grey lighten-5">
+<body class="blue-grey lighten-5">
 {% block nav %}
 <nav class="grey darken-3">
     <div class="nav-wrapper container">
@@ -35,25 +35,32 @@
 </nav>
 {% endblock nav %}
 <main>
-    {% for message in get_flashed_messages(with_categories=True) %}
-    <!--提示消息-->
-    {% endfor %}
+    <div class="container">
+        <br>
+        <br>
+        {% block content %}
+        {% endblock content %}
+    </div>
     <br>
-    <br>
-    {% block content %}
-    {% endblock content %}
-    {% block footer %}
-    {% endblock footer %}
+    <footer class="grey darken-3 page-footer">
+        <div class="footer-copyright">
+            <div class="container">
+                © 2019 Copyright 文本
+                <a class="grey-text text-lighten-4 right" href="#!">更多链接</a>
+            </div>
+        </div>
+    </footer>
 </main>
 
 {% block scripts %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+{{ moment.include_moment() }}
+{{ moment.locale(auto_detect=True) }}
 <script>
     $(document).ready(function(){
         $(".button-collapse").sideNav();
     });
-
 </script>
 <script>
     $(document).ready(function(){
@@ -62,7 +69,6 @@
     {% for message in get_flashed_messages() %}
     Materialize.toast('{{ message }}', 1000)
     {% endfor %}
-
 </script>
 {% endblock scripts %}
 </body>

@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="card white hoverable">
-        <div class="card-content">
-            <p class="card-title">{{ post.title }}</p>
-            <br>
-            <p>{{ post.body|safe }}</p>
-        </div>
-        <div class="card-action">
-            <a><span class="chip">{{ post.category.name }}</span></a>
-            <span class="right chip">{{ post.timestamp }}</span>
-        </div>
+<div class="card white hoverable">
+    <div class="card-content">
+        <p class="card-title">{{ post.title }}</p>
+        <br>
+        <p>{{ post.body|safe }}</p>
     </div>
-    <a class="waves-effect waves-light btn right" href="#modal1">分享</a>
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <p>分享链接</p>
-            <input type="text" class="" value="{{ url_for('.show_post', post_id=post.id, _external=True) }}">
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+    <div class="card-action">
+        <a><span class="chip">{{ post.category.name }}</span></a>
+        <span class="right chip">{{ moment(post.timestamp).format('lll') }}</span>
+        <div>
+            <a class="waves-effect waves-light btn right" href="#modal1">分享</a>
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <p>分享链接</p>
+                    <input type="text" class="" value="{{ url_for('.show_post', post_id=post.id, _external=True) }}">
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">关闭</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
